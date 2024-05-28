@@ -71,11 +71,10 @@
     {
         var user = new ApplicationUser
             {
-                UserProfile = new UserProfile
-                {
-                    FirstName = signUpForm.FirstName,
-                    LastName = signUpForm.LastName
-                },
+
+                FirstName = signUpForm.FirstName,
+                LastName = signUpForm.LastName,
+
                 UserName = signUpForm.Email,
                 Email = signUpForm.Email
             };
