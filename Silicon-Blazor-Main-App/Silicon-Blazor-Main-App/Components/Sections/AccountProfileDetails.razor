@@ -1,0 +1,30 @@
+﻿
+
+        <div class="profile-info">
+            <div class="image-cropper">
+                <img src="@user.UserProfile!.ProfileImage" alt="" />
+
+            </div>
+            <EditForm enctype="multipart/form-data" method="post" >
+                <input id="uploadFile" type="file" name="file" hidden />
+                <label for="uploadFile" class="btn btn-circle"><i class="fa-regular fa-refresh"></i></label>
+            </EditForm>
+            <h5>@user.UserProfile.FirstName @user.UserProfile.LastName </h5>
+            <p>@user.Email</p>
+        </div>
+
+
+
+@code {
+    private ApplicationUser user = default!;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserManager.GetUserAsync(HttpContext.User) ?? null!;
+
+
+    }
+}

@@ -1,0 +1,109 @@
+﻿@rendermode InteractiveServer
+
+<section id="newsletter">
+    <div class="container">
+        <div class="container-child">
+            <div class="headline">
+                <h1>Don't Want to Miss Anything?</h1>
+                <img src="/images/arrows.svg" alt="">
+            </div>
+            <EditForm FormName="subscribe" Model="SubscribeFrom" OnValidSubmit="OnValidSubmit" method="post" novalidate>
+                <DataAnnotationsValidator/>
+                <div class="content">
+                    <h5>Sign up for Newsletters</h5>
+
+                    <div class="content-parent">
+                        <div class="content-child">
+                            <InputCheckbox @bind-Value="SubscribeFrom.DailyNewsletter" />
+                            <label>Daily Newsletter</label>
+                        </div>
+                        <div class="content-child">
+                            <InputCheckbox @bind-Value="SubscribeFrom.AdvertisingUpdate" />
+                            <label>Advertising Update</label>
+                        </div>
+                        <div class="content-child">
+                            <InputCheckbox @bind-Value="SubscribeFrom.WeekInReview" />
+                            <label> Week In Review</label>
+                        </div>
+                        <div class="content-child">
+                            <InputCheckbox @bind-Value="SubscribeFrom.EventUpdates" />
+                            <label>Event Updates</label>
+                        </div>
+                        <div class="content-child">
+                            <InputCheckbox @bind-Value="SubscribeFrom.StartupsWeekly" />
+                            <label>Startups Weekly</label>
+                        </div>
+                        <div class="content-child">
+                            <InputCheckbox @bind-Value="SubscribeFrom.Podcasts" />
+                            <label>Podcasts"</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="email-subscribe">
+                    <i class="fa-regular fa-envelope"></i>
+                    <InputText type="email" @bind-Value="SubscribeFrom.Email" placeholder="Your email" />
+                    <button class="btn-theme" type="submit">Subscribe *</button>
+                </div>
+                <div class="status-message">
+                    <ValidationMessage For="@(() => SubscribeFrom.Email)" class="alert" />
+
+                    <p>* Yes, I agree to the <a href="">terms</a> and <a href="">privacy policy.</a></p>
+
+                </div>
+            </EditForm>
+
+        </div>
+
+    </div>
+</section>
+
+@code {
+    [SupplyParameterFromQuery]
+    public string StatusMessage { get; set; } = "* Yes, I agree to the terms and privacy policy.";
+
+    [SupplyParameterFromForm]
+    public SubscribeFormModel SubscribeFrom { get; set; } = new SubscribeFormModel();
+
+
+    private async Task OnValidSubmit()
+    {
+        try
+        {
+            var result = await Http.PostAsJsonAsync("https://newsletterprovider-silicon-webapp.azurewebsites.net/api/Subscribe?code=sQxtnodl9f8u5tDhLrK5lTmvI2oLKJhov9gFqrfl6qhbAzFuofCxag%3D%3D", SubscribeFrom);
+            if (result.IsSuccessStatusCode)
+                StatusMessage = "Thanks for subscribing";
+        }
+        catch(Exception)
+        {
+            StatusMessage = "Unable to subscribe. Please try again later";    
+        }
+
+        SubscribeFrom = new SubscribeFormModel();
+
+
+
+    }
+
+    public class SubscribeFormModel
+    {
+        public bool DailyNewsletter { get; set; }
+
+        public bool AdvertisingUpdate { get; set; }
+
+        public bool WeekInReview { get; set; }
+
+        public bool EventUpdates { get; set; }
+
+        public bool StartupsWeekly { get; set; }
+
+        public bool Podcasts { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "You must enter an email address")]
+        [Display(Name = "Email Address", Prompt = "Your Email")]
+        public string Email { get; set; } = null!;
+
+        public string Message { get; set; } = null!;
+    }
+}

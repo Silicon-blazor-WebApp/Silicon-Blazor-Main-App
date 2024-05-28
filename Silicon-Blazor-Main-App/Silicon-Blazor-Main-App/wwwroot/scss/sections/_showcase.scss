@@ -1,0 +1,70 @@
+
+#showcase {
+
+
+    .background-image {
+        display: none;
+
+        @include xxl {
+            display: block;
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    .container {
+        padding-top: 6rem;
+        padding-bottom: 20rem;
+
+        .content {
+            display: grid;
+            grid-template-rows: auto;
+            gap: 1.5rem;
+            text-align: center;
+
+            @include xxl {
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+            }
+        }
+
+        h1 {
+            @include xxl {
+                padding-right: 8rem;
+                width: 50%;
+            }
+
+            @include d4;
+            line-height: 140%;
+        }
+
+        p {
+            margin: 0;
+
+            @include xxl {
+                padding-right: 5rem;
+                width: 40%;
+            }
+        }
+
+        .btn-theme-s {
+            @include xxl {
+                width: 13rem;
+            }
+        }
+
+        h6 {
+            @include xxl {
+                padding-top: 3rem;
+            }
+        }
+
+        .brands {
+
+            img {
+                padding-right: 1rem;
+            }
+        }
+    }
+}

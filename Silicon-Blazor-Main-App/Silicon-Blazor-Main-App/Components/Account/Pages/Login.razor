@@ -1,0 +1,87 @@
+﻿@page "/account/login"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Logging
+@using Silicon_Blazor_Main_App.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+
+<section id="signin">
+    <div class="container">
+        <EditForm FormName="signInForm" Model="signInForm" OnValidSubmit="HandleLogin">
+            <div class="error-message">
+                @if (!string.IsNullOrEmpty(ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ErrorMessage
+                    </div>
+                }
+            </div>
+            <h1>Welcome Back</h1>
+            <p>Don’t have an account yet? <a href="register">Sign up here.</a>.</p>
+
+            <div class="content">
+                <div id="form-email" class="input-group">
+                    <label>Email</label>
+                    <InputText @bind-Value="signInForm.Email" />
+                    <ValidationMessage For="() => signInForm.Email" />
+                </div>
+                <div id="form-password" class="input-group">
+                    <label>Password</label>
+                    <InputText @bind-Value="signInForm.Password" type="password" />
+                    <ValidationMessage For="() => signInForm.Password" />
+                </div>
+                <div id="form-remember" class="checkbox-group">
+                    <InputCheckbox @bind-Value="signInForm.RememberMe" />
+                    <label>Keep me signed in</label>
+                </div>
+                <button id="form-button" class="btn-theme-s" type="submit">Sign in</button>
+                <a id="form-forgot-password" href="forgot-password">Forgot your password?</a>
+                <hr />
+                <div id="external-signin">
+                    <button class="btn-gray"><i class="fa-brands fa-google"></i>Google</button>
+                    <button class="btn-gray"><i class="fa-brands fa-facebook-f"></i>Facebook</button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</section>
+
+@code {
+    [SupplyParameterFromForm]
+
+    private SignInFormModel signInForm { get; set; } = new SignInFormModel();
+    private string? ErrorMessage { get; set; }
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    private async Task HandleLogin()
+    {
+        var result = await SignInManager.PasswordSignInAsync(signInForm.Email, signInForm.Password, signInForm.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            Logger.LogInformation("User logged in.");
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else
+        {
+            ErrorMessage = "Invalid login attempt.";
+        }
+    }
+
+
+    private class SignInFormModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null!;
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = null!;
+
+        public bool RememberMe { get; set; }
+    }
+}

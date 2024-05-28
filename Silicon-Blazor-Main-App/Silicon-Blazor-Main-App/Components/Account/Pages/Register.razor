@@ -1,0 +1,151 @@
+﻿@page "/Account/Register"
+@using System.ComponentModel.DataAnnotations
+@rendermode InteractiveServer
+
+<PageTitle>Sign up</PageTitle>
+
+<section id="signup">
+    <div class="container">
+        <EditForm FormName="signupform" Model="signUpForm" OnValidSubmit="OnvalidSubmit" asp-route-returnUrl="@ReturnUrl" method="post" novalidate>
+            <DataAnnotationsValidator />
+            <h1>Create Account</h1>
+            <p>Already have an account? <a href="account/login">Sign in here</a>.</p>
+            @if (!string.IsNullOrEmpty(@StatusMessage))
+            {
+                <div class="alert alert-danger">
+                    @StatusMessage
+                </div>
+            }
+            <div class="content">
+                <div id="form-firstname" class="input-group">
+                    <label>First name</label>
+                    <ValidationMessage For="() => signUpForm.FirstName" />
+                    <InputText @bind-Value="signUpForm.FirstName" />
+                </div>
+                <div id="form-lastname" class="input-group">
+                    <label>Last name</label>
+                    <ValidationMessage For="() => signUpForm.LastName" />
+                    <InputText @bind-Value="signUpForm.LastName" />
+                </div>
+                <div id="form-email" class="input-group">
+                    <label>Email</label>
+                    <ValidationMessage For="() => signUpForm.Email" />
+                    <InputText @bind-Value="signUpForm.Email" type="email" />
+                </div>
+                <div id="form-password" class="input-group">
+                    <label>Password</label>
+                    <ValidationMessage For="() => signUpForm.Password" />
+                    <InputText @bind-Value="signUpForm.Password" type="password" />
+                </div>
+                <div id="form-confirm" class="input-group">
+                    <label>Confirm password</label>
+                    <ValidationMessage For="() => signUpForm.ConfirmPassword" />
+                    <InputText @bind-Value="signUpForm.ConfirmPassword" type="password" />
+                </div>
+                <div id="form-terms" class="checkbox">
+                    <div class="checkbox-group">
+                        <InputCheckbox @bind-Value="signUpForm.Terms" />
+                        <label>I agree to the <a>Terms</a> & <a>Conditions</a>.</label>
+                    </div>
+                    <ValidationMessage For="() => signUpForm.Terms" />
+                </div>
+                <button id="form-button" class="btn-theme-s" type="submit">Sign up</button>
+            </div>
+        </EditForm>
+    </div>
+</section>
+
+
+@code {
+    [SupplyParameterFromQuery]
+    public string StatusMessage { get; set; } = "";
+
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
+    [SupplyParameterFromForm]
+    public SignUpFormModel signUpForm { get; set; } = new();
+
+
+    public async Task OnvalidSubmit(EditContext editContext)
+    {
+        var user = new ApplicationUser
+            {
+                UserProfile = new UserProfile
+                {
+                    FirstName = signUpForm.FirstName,
+                    LastName = signUpForm.LastName
+                },
+                UserName = signUpForm.Email,
+                Email = signUpForm.Email
+            };
+
+        try
+        {
+            var alreadyExists = await UserManager.FindByEmailAsync(signUpForm.Email);
+            if (alreadyExists != null)
+            {
+                StatusMessage = "An account with the same email adress already exists.";
+            }
+
+            var result = await UserManager.CreateAsync(user, signUpForm.Password);
+            if (!result.Succeeded)
+            {
+                StatusMessage = "Unable to register account. Please try again";
+                return;
+            }
+        }
+        catch (Exception)
+        {
+
+            StatusMessage = "An error occurred while creating account";
+            return;
+        }
+
+        await Http.PostAsJsonAsync("https://verficationprovider-silicon-blazor.azurewebsites.net/api/GenerateVerificationCodeHttp?code=2RY6l_95xMRvWdYXcNjWB_nPttrz6DJOSKovlDtV5mfkAzFuCnY88Q%3D%3D", signUpForm);
+        if (UserManager.Options.SignIn.RequireConfirmedAccount)
+        {
+            RedirectManager.RedirectTo("/account/RegisterConfirmation", new() { ["email"] = signUpForm.Email, ["returnUrl"] = ReturnUrl });
+        }
+
+        await SignInManager.SignInAsync(user, isPersistent: false);
+        RedirectManager.RedirectTo(ReturnUrl);
+    }
+
+    public class SignUpFormModel
+    {
+        [DataType(DataType.Text)]
+        [Display(Name = "First name", Prompt = "Your first name")]
+        [Required(ErrorMessage = "A valid first name is required")]
+        public string FirstName { get; set; } = null!;
+
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Last name", Prompt = "Your last name")]
+        [Required(ErrorMessage = "A valid last name is required")]
+        public string LastName { get; set; } = null!;
+
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email", Prompt = "Your email address")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "An valid email address is required")]
+        public string Email { get; set; } = null!;
+
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Password", Prompt = "Your password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "A valid password is required")]
+        public string Password { get; set; } = null!;
+
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password", Prompt = "Confirm your password")]
+        [Required(ErrorMessage = "Password must be confirmed")]
+        [Compare(nameof(Password), ErrorMessage = "Password must be confirmed")]
+        public string ConfirmPassword { get; set; } = null!;
+
+
+        [Required(ErrorMessage = "You must accept the terms.")]
+        public bool Terms { get; set; }
+    }
+}
