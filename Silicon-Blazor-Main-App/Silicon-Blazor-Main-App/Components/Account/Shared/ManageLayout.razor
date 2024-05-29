@@ -1,17 +1,22 @@
 ﻿@inherits LayoutComponentBase
 @layout AccountLayout
 
-<h1>Manage your account</h1>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <ManageNavMenu />
+        <div class="container">
+            <div id="account-details">
+                <aside>
+                    <AccountProfileDetails />
+                    <ManageNavMenu/>
+
+                    <nav>
+                        <a class="btn-theme-s" asp-controller="Account" asp-action="Details"><i class="fa-regular fa-cog"></i>Account Details</a>
+                        <a class="btn-transparent" asp-controller="Account" asp-action="SignOut"><i class="fa-regular fa-right-to-bracket"></i>Sign out</a>
+                    </nav>
+                </aside>
+                @Body
+            </div>
         </div>
-        <div class="col-md-9">
-            @Body
-        </div>
-    </div>
-</div>
+
+
+
+

@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Silicon_Blazor_Main_App.Data;
 
 #nullable disable
 
-namespace Silicon_Blazor_Main_App.Migrations
+namespace SiliconBlazorMainApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240528154012_Profile and Addresses added")]
-    partial class ProfileandAddressesadded
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,6 +163,9 @@ namespace Silicon_Blazor_Main_App.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Biography")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -176,6 +176,14 @@ namespace Silicon_Blazor_Main_App.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -200,6 +208,9 @@ namespace Silicon_Blazor_Main_App.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -213,9 +224,6 @@ namespace Silicon_Blazor_Main_App.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("UserProfileId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -227,8 +235,6 @@ namespace Silicon_Blazor_Main_App.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("UserAddressId");
-
-                    b.HasIndex("UserProfileId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -300,30 +306,6 @@ namespace Silicon_Blazor_Main_App.Migrations
                     b.ToTable("UserAddresses");
                 });
 
-            modelBuilder.Entity("Silicon_Blazor_Main_App.Data.UserProfile", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Biography")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("userProfiles");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -381,13 +363,7 @@ namespace Silicon_Blazor_Main_App.Migrations
                         .WithMany()
                         .HasForeignKey("UserAddressId");
 
-                    b.HasOne("Silicon_Blazor_Main_App.Data.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId");
-
                     b.Navigation("UserAddress");
-
-                    b.Navigation("UserProfile");
                 });
 #pragma warning restore 612, 618
         }
