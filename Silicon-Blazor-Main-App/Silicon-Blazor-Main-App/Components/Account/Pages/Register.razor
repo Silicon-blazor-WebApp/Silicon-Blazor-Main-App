@@ -139,7 +139,7 @@
 
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password", Prompt = "Confirm your password")]
+        [Display(Name = "Confirm Password", Prompt = "Confirm your password ")]
         [Required(ErrorMessage = "Password must be confirmed")]
         [Compare(nameof(Password), ErrorMessage = "Password must be confirmed")]
         public string ConfirmPassword { get; set; } = null!;
