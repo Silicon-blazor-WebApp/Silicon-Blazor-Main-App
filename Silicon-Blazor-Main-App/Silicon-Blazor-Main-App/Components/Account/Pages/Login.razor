@@ -24,12 +24,12 @@
             <div class="content">
                 <div id="form-email" class="input-group">
                     <label>Email</label>
-                    <InputText @bind-Value="signInForm.Email"/>
+                    <InputText @bind-Value="signInForm.Email" placeholder="Enter your e-maíl" />
                     <ValidationMessage For="() => signInForm.Email" />
                 </div>
                 <div id="form-password" class="input-group">
                     <label>Password</label>
-                    <InputText @bind-Value="signInForm.Password" type="password" />
+                    <InputText @bind-Value="signInForm.Password" type="password" placeholder="Enter your password" />
                     <ValidationMessage For="() => signInForm.Password" />
                 </div>
                 <div id="form-remember" class="checkbox-group">

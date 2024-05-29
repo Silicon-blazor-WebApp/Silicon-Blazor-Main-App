@@ -5,27 +5,37 @@
     <EditForm Model="SubscribeFrom">
         <div id="form-email" class="input-group">
             <label>Preferred email for notifications</label>
-            <InputText @bind-Value="SubscribeFrom.Email"  />
+            <InputText @bind-Value="SubscribeFrom.Email" placeholder="Enter your e-email"  />
         </div>
     </EditForm>
-
-    <div class="btn-switch-g">
-        <label>Light</label>
-        <label class="switch" for="switch-mode">
-            <input type="checkbox" id="switch-mode" />
-            <span class="slider round"></span>
-        </label>
-        <label>Dark</label>
+    <div class="flexer">
+        <div id="btn-switch-g">
+            <label class="switch">
+                <input type="checkbox" id="switch-mode-notifications" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="text">
+            <h6>Subscribe to Newsletter</h6>
+            <p>Nec, posuere non felis duis massa vitae aliquet interdum scelerisque. Neque ullamcorper.</p>
+        </div>
     </div>
-    <div class="btn-switch-g">
-        <label>Light</label>
-        <label class="switch" for="switch-mode">
-            <input type="checkbox" id="switch-mode" />
-            <span class="slider round"></span>
-        </label>
-        <label>Dark</label>
+    <div class="flexer">
+        <div id="btn-switch-g">
+            <label class="switch">
+                <input type="checkbox" id="switch-mode-notifications" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="text">
+            <h6>Use Dark Mode Theme in Application</h6>
+            <p>Tortor massa porttitor enim tristique neque fermentum sed.</p>
+        </div>
     </div>
-
+    <div class="flex-buttons">
+        <button class="btn-gray" type="reset">Cancel</button>
+        <button class="btn-theme" type="submit">Save changes</button>
+    </div>
 </section>
 
 

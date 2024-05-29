@@ -5,12 +5,12 @@ $font-manrope: 'Manrope', sans-serif;
     line-height: 160%;
     font-weight: 400;
     color: $gray-700;
-    font-family: $font-manrope;
+    font-family: $font-manrope ;
 }
 
 @mixin standard-heading {
     @include standard-text();
-    font-weight: 800;
+    font-weight: 800 !important;
     color: $gray-900;
 }
 

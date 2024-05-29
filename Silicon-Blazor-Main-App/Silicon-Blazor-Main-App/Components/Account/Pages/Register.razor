@@ -20,27 +20,27 @@
                 <div id="form-firstname" class="input-group">
                     <label>First name</label>
                     <ValidationMessage For="() => signUpForm.FirstName" />
-                    <InputText @bind-Value="signUpForm.FirstName" />
+                    <InputText @bind-Value="signUpForm.FirstName" placeholder="Enter your firstname"/>
                 </div>
                 <div id="form-lastname" class="input-group">
                     <label>Last name</label>
-                    <ValidationMessage For="() => signUpForm.LastName" />
+                    <ValidationMessage For="() => signUpForm.LastName" placeholder="Enter your lastname" />
                     <InputText @bind-Value="signUpForm.LastName" />
                 </div>
                 <div id="form-email" class="input-group">
                     <label>Email</label>
                     <ValidationMessage For="() => signUpForm.Email" />
-                    <InputText @bind-Value="signUpForm.Email" type="email" />
+                    <InputText @bind-Value="signUpForm.Email" type="email" placeholder="Enter your e-mail" />
                 </div>
                 <div id="form-password" class="input-group">
                     <label>Password</label>
                     <ValidationMessage For="() => signUpForm.Password" />
-                    <InputText @bind-Value="signUpForm.Password" type="password" />
+                    <InputText @bind-Value="signUpForm.Password" type="password" placeholder="Enter your password" />
                 </div>
                 <div id="form-confirm" class="input-group">
                     <label>Confirm password</label>
                     <ValidationMessage For="() => signUpForm.ConfirmPassword" />
-                    <InputText @bind-Value="signUpForm.ConfirmPassword" type="password" />
+                    <InputText @bind-Value="signUpForm.ConfirmPassword" type="password" placeholder="Confirm your password" />
                 </div>
                 <div id="form-terms" class="checkbox">
                     <div class="checkbox-group">

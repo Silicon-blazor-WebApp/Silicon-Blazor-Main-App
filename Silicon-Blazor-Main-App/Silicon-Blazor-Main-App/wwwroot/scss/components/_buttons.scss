@@ -31,7 +31,6 @@
     padding-bottom: 13px;
     border: none;
 
-
     &:hover {
         @include theme-secondary-shadow;
         text-decoration: none;
@@ -65,7 +64,7 @@
     }
 }
 
-.btn-switch {
+#btn-switch, #btn-switch-g {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -80,7 +79,7 @@
         width: 46px;
         height: 25px;
 
-        & input {
+        input {
             opacity: 0;
             width: 0;
             height: 0;
@@ -107,7 +106,7 @@
             right: 0;
             bottom: 0;
             background-color: $gray-700;
-            transition: .4s;
+            transition: 0.4s;
 
             &:before {
                 position: absolute;
@@ -117,73 +116,7 @@
                 left: 3px;
                 bottom: 2.7px;
                 background-color: $white;
-                transition: .4s;
-            }
-
-            &.round {
-                border-radius: 34px;
-            }
-
-            &.round:before {
-                border-radius: 50%;
-            }
-        }
-    }
-}
-
-.btn-switch-g {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    label {
-        @include text-nav;
-    }
-
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 46px;
-        height: 25px;
-
-        & input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-
-            &:checked + .slider {
-                background-color: $success;
-            }
-
-            &:focus + .slider {
-                box-shadow: 0 0 1px $theme;
-            }
-
-            &:checked + .slider:before {
-                transform: translateX(20px);
-                background-color: $white;
-            }
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: $gray-700;
-            transition: .4s;
-
-            &:before {
-                position: absolute;
-                content: "";
-                height: 20px;
-                width: 20px;
-                left: 3px;
-                bottom: 2.7px;
-                background-color: $white;
-                transition: .4s;
+                transition: 0.4s;
             }
 
             &.round {

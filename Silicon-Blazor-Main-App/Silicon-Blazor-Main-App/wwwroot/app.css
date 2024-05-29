@@ -9,6 +9,10 @@ html, body {
   scroll-behavior: smooth;
 }
 
+p {
+  color: #9397AD;
+}
+
 .text-xs {
   line-height: 160%;
   font-weight: 400;
@@ -62,7 +66,7 @@ html, body {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 80px !important;
 }
@@ -72,7 +76,7 @@ html, body {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 72px !important;
 }
@@ -82,7 +86,7 @@ html, body {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 64px !important;
 }
@@ -92,7 +96,7 @@ html, body {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 56px !important;
 }
@@ -102,7 +106,7 @@ html, body {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 48px !important;
 }
@@ -112,7 +116,7 @@ html, body {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 42px !important;
 }
@@ -122,7 +126,7 @@ h1, .h1 {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 40px !important;
 }
@@ -132,7 +136,7 @@ h2, .h2 {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 32px !important;
 }
@@ -142,7 +146,7 @@ h3, .h3 {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 28px !important;
 }
@@ -152,7 +156,7 @@ h4, .h4 {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 24px !important;
 }
@@ -162,7 +166,7 @@ h5, .h5 {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 20px !important;
 }
@@ -172,7 +176,7 @@ h6, .h6 {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 16px !important;
 }
@@ -383,12 +387,12 @@ form .alert {
   color: #FFFFFF;
 }
 
-.btn-switch {
+#btn-switch, #btn-switch-g {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.btn-switch label {
+#btn-switch label, #btn-switch-g label {
   line-height: 160%;
   font-weight: 400;
   color: #565973;
@@ -397,28 +401,28 @@ form .alert {
   color: #33354D;
   font-weight: 600 !important;
 }
-.btn-switch .switch {
+#btn-switch .switch, #btn-switch-g .switch {
   position: relative;
   display: inline-block;
   width: 46px;
   height: 25px;
 }
-.btn-switch .switch input {
+#btn-switch .switch input, #btn-switch-g .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.btn-switch .switch input:checked + .slider {
+#btn-switch .switch input:checked + .slider, #btn-switch-g .switch input:checked + .slider {
   background-color: #6366F1;
 }
-.btn-switch .switch input:focus + .slider {
+#btn-switch .switch input:focus + .slider, #btn-switch-g .switch input:focus + .slider {
   box-shadow: 0 0 1px #6366F1;
 }
-.btn-switch .switch input:checked + .slider:before {
+#btn-switch .switch input:checked + .slider:before, #btn-switch-g .switch input:checked + .slider:before {
   transform: translateX(20px);
   background-color: #FFFFFF;
 }
-.btn-switch .switch .slider {
+#btn-switch .switch .slider, #btn-switch-g .switch .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -428,7 +432,7 @@ form .alert {
   background-color: #565973;
   transition: 0.4s;
 }
-.btn-switch .switch .slider:before {
+#btn-switch .switch .slider:before, #btn-switch-g .switch .slider:before {
   position: absolute;
   content: "";
   height: 20px;
@@ -438,72 +442,10 @@ form .alert {
   background-color: #FFFFFF;
   transition: 0.4s;
 }
-.btn-switch .switch .slider.round {
+#btn-switch .switch .slider.round, #btn-switch-g .switch .slider.round {
   border-radius: 34px;
 }
-.btn-switch .switch .slider.round:before {
-  border-radius: 50%;
-}
-
-.btn-switch-g {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.btn-switch-g label {
-  line-height: 160%;
-  font-weight: 400;
-  color: #565973;
-  font-family: "Manrope", sans-serif;
-  font-size: 16px;
-  color: #33354D;
-  font-weight: 600 !important;
-}
-.btn-switch-g .switch {
-  position: relative;
-  display: inline-block;
-  width: 46px;
-  height: 25px;
-}
-.btn-switch-g .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.btn-switch-g .switch input:checked + .slider {
-  background-color: #22C55E;
-}
-.btn-switch-g .switch input:focus + .slider {
-  box-shadow: 0 0 1px #6366F1;
-}
-.btn-switch-g .switch input:checked + .slider:before {
-  transform: translateX(20px);
-  background-color: #FFFFFF;
-}
-.btn-switch-g .switch .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #565973;
-  transition: 0.4s;
-}
-.btn-switch-g .switch .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 2.7px;
-  background-color: #FFFFFF;
-  transition: 0.4s;
-}
-.btn-switch-g .switch .slider.round {
-  border-radius: 34px;
-}
-.btn-switch-g .switch .slider.round:before {
+#btn-switch .switch .slider.round:before, #btn-switch-g .switch .slider.round:before {
   border-radius: 50%;
 }
 
@@ -533,11 +475,11 @@ a {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: all 0.25s ease-in-out;
 }
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .menu-link {
@@ -663,7 +605,7 @@ header .container .btn-mobile {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 56px !important;
   line-height: 140%;
@@ -1049,7 +991,7 @@ header .container .btn-mobile {
   font-weight: 400;
   color: #565973;
   font-family: "Manrope", sans-serif;
-  font-weight: 800;
+  font-weight: 800 !important;
   color: #0B0F19;
   font-size: 16px !important;
   color: #EF4444;
@@ -1404,4 +1346,24 @@ footer .container .social-media {
   top: 50%;
   left: 50%;
   margin: -25px 0px 0px -25px;
+}
+
+#notifications {
+  padding-top: 4rem;
+}
+#notifications .flexer {
+  display: flex;
+  padding-top: 2rem;
+  align-items: start;
+}
+#notifications .text {
+  margin-left: 1rem;
+}
+#notifications .text h6 {
+  margin: 0;
+}
+#notifications .flex-buttons {
+  padding-top: 3rem;
+  display: flex;
+  gap: 1rem;
 }

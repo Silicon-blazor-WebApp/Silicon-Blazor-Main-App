@@ -1,11 +1,11 @@
 a {
     @include standard-text;
 
-    text-decoration: none;
+    text-decoration: none !important;
     transition: all 0.25s ease-in-out;
 
     &:hover {
-        text-decoration: underline;
+        text-decoration: none;
     }
 }
 

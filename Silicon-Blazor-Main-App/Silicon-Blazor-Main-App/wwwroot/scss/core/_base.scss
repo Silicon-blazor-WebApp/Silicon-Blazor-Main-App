@@ -3,6 +3,9 @@ html, body {
     font-size: 16px; 
     scroll-behavior: smooth;
 }
+p{
+    color:$gray-600;
+}
 
 .text-xs { @include text-xs; }
 .text-s { @include text-s; }
