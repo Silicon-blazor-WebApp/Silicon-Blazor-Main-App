@@ -2,20 +2,17 @@
 @layout AccountLayout
 
 
-        <div class="container">
-            <div id="account-details">
-                <aside>
-                    <AccountProfileDetails />
-                    <ManageNavMenu/>
+<div class="container">
+    <div id="account-details">
+        <aside>
+            <AccountProfileDetails />
+            <ManageNavMenu/>
+        </aside>
+        @Body
+    </div>
+</div>
 
-                    <nav>
-                        <a class="btn-theme-s" asp-controller="Account" asp-action="Details"><i class="fa-regular fa-cog"></i>Account Details</a>
-                        <a class="btn-transparent" asp-controller="Account" asp-action="SignOut"><i class="fa-regular fa-right-to-bracket"></i>Sign out</a>
-                    </nav>
-                </aside>
-                @Body
-            </div>
-        </div>
+
 
 
 

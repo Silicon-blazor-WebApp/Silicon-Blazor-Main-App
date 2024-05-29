@@ -365,6 +365,24 @@ form .alert {
   color: #FFFFFF;
 }
 
+.btn-transparent {
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #33354D;
+  border: none;
+}
+.btn-transparent:hover {
+  text-decoration: none;
+  background: #565973;
+  color: #FFFFFF;
+}
+
 .btn-switch {
   display: flex;
   align-items: center;
@@ -424,6 +442,68 @@ form .alert {
   border-radius: 34px;
 }
 .btn-switch .switch .slider.round:before {
+  border-radius: 50%;
+}
+
+.btn-switch-g {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-switch-g label {
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  color: #33354D;
+  font-weight: 600 !important;
+}
+.btn-switch-g .switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 25px;
+}
+.btn-switch-g .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.btn-switch-g .switch input:checked + .slider {
+  background-color: #22C55E;
+}
+.btn-switch-g .switch input:focus + .slider {
+  box-shadow: 0 0 1px #6366F1;
+}
+.btn-switch-g .switch input:checked + .slider:before {
+  transform: translateX(20px);
+  background-color: #FFFFFF;
+}
+.btn-switch-g .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #565973;
+  transition: 0.4s;
+}
+.btn-switch-g .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 2.7px;
+  background-color: #FFFFFF;
+  transition: 0.4s;
+}
+.btn-switch-g .switch .slider.round {
+  border-radius: 34px;
+}
+.btn-switch-g .switch .slider.round:before {
   border-radius: 50%;
 }
 
@@ -1212,4 +1292,116 @@ footer .container .social-media {
   margin: 20px 0;
   display: flex;
   gap: 20px;
+}
+
+#singel-course {
+  position: relative;
+}
+#singel-course h1 {
+  font-weight: 900;
+}
+#singel-course img {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.5;
+  height: auto;
+  width: 100%;
+}
+#singel-course .container {
+  height: 35rem;
+}
+#singel-course .container .header-course {
+  padding-top: 6rem;
+}
+#singel-course .container .header-course .tags {
+  display: flex;
+}
+#singel-course .container .header-course .tags h4 {
+  line-height: 160%;
+  font-weight: 400;
+  color: #565973;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px !important;
+  border-radius: 8px;
+  background-color: #22C55E;
+  color: white;
+  z-index: 1;
+  padding: 0 0.5rem 0 0.5rem;
+}
+#singel-course .container .header-course h1 {
+  font-weight: 900;
+  color: white;
+}
+#singel-course .container .header-course h6 {
+  color: white;
+}
+#singel-course .container .content-child {
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+#singel-course .container .content-child i {
+  color: #FFBA08;
+}
+#singel-course .container .content-child p {
+  color: white;
+  margin: 10px;
+}
+#singel-course .container .content-child p i {
+  color: white;
+}
+
+#course-description h1 {
+  font-weight: 900;
+}
+#course-description h3 {
+  font-weight: 900;
+}
+#course-description .container .flexer {
+  display: flex;
+  justify-content: space-between;
+}
+#course-description .container .description {
+  width: 60%;
+}
+#course-description .container .description i {
+  color: #6366F1;
+}
+#course-description .container .includes {
+  border-radius: 0.5rem;
+  padding: 2rem;
+  justify-content: flex-end;
+  box-shadow: 0px 4px 13px -2px rgba(19, 16, 34, 0.06), 0px 4.8px 24.4px -6px rgba(19, 16, 34, 0.1);
+}
+#course-description .container .includes .price {
+  display: flex;
+  align-items: center;
+}
+#course-description .container .program-details {
+  padding-top: 3rem;
+}
+#course-description .container .program-details .details .details-content {
+  display: flex;
+  margin-bottom: 2rem;
+}
+#course-description .container .program-details .details .details-content .bg-cirle {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  margin-right: 2rem;
+  position: relative;
+  text-align: center;
+  background-color: #F3F6FF;
+}
+#course-description .container .program-details .details .details-content .bg-cirle h3 {
+  box-shadow: 0px 4px 9px -1px rgba(19, 16, 34, 0.03), 0px 4.4px 20px -1px rgba(19, 16, 34, 0.05);
+  background-color: #ffffff;
+  position: absolute;
+  align-content: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0px 0px -25px;
 }

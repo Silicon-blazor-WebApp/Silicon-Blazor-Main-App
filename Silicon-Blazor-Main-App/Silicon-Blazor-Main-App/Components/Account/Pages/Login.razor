@@ -24,7 +24,7 @@
             <div class="content">
                 <div id="form-email" class="input-group">
                     <label>Email</label>
-                    <InputText @bind-Value="signInForm.Email" />
+                    <InputText @bind-Value="signInForm.Email"/>
                     <ValidationMessage For="() => signInForm.Email" />
                 </div>
                 <div id="form-password" class="input-group">
@@ -76,11 +76,11 @@
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; } = null!;
+        public string Email { get; set; } = "hugospangberg1@gmail.com";
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = null!;
+        public string Password { get; set; } = "Bytmig123!";
 
         public bool RememberMe { get; set; }
     }

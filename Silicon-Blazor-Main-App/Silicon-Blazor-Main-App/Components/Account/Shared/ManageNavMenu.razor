@@ -1,37 +1,38 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using Silicon_Blazor_Main_App.Data
-
+@inject NavigationManager Navigation
 @inject SignInManager<ApplicationUser> SignInManager
 
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage" Match="NavLinkMatch.All">Profile</NavLink>
-    </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/Email">Email</NavLink>
-    </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/ChangePassword">Password</NavLink>
-    </li>
-    @if (hasExternalLogins)
-    {
-        <li class="nav-item">
-            <NavLink class="nav-link" href="Account/Manage/ExternalLogins">External logins</NavLink>
-        </li>
-    }
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</NavLink>
-    </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/PersonalData">Personal data</NavLink>
-    </li>
-</ul>
+<nav>
+    <NavLink href="Account/Manage/details" class="btn-theme-s"><i class="fa-regular fa-cog"></i>Account Details</NavLink>
+    <NavLink href="Account/Manage/notifications" class="btn-transparent"><i class="fa-regular fa-cog"></i>Notifications</NavLink>
+
+    <NavLink @onclick="HandleLogout" class="btn-transparent"><i class="fa-regular fa-right-to-bracket"></i>Sign out</NavLink>
+</nav>
 
 @code {
     private bool hasExternalLogins;
 
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
     protected override async Task OnInitializedAsync()
     {
         hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    }
+
+    private async Task HandleLogout()
+    {
+        try
+        {
+            await SignInManager.SignOutAsync();
+            Console.WriteLine("User signed out successfully.");
+            Navigation.NavigateTo("/account/login", true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Logout failed: {ex.Message}");
+        }
     }
 }

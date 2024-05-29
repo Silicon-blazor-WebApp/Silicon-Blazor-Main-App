@@ -1,0 +1,79 @@
+﻿@page "/Account/Manage/notifications"
+
+<section id="notifications">
+    <h1>Notifications</h1>
+    <EditForm Model="SubscribeFrom">
+        <div id="form-email" class="input-group">
+            <label>Preferred email for notifications</label>
+            <InputText @bind-Value="SubscribeFrom.Email"  />
+        </div>
+    </EditForm>
+
+    <div class="btn-switch-g">
+        <label>Light</label>
+        <label class="switch" for="switch-mode">
+            <input type="checkbox" id="switch-mode" />
+            <span class="slider round"></span>
+        </label>
+        <label>Dark</label>
+    </div>
+    <div class="btn-switch-g">
+        <label>Light</label>
+        <label class="switch" for="switch-mode">
+            <input type="checkbox" id="switch-mode" />
+            <span class="slider round"></span>
+        </label>
+        <label>Dark</label>
+    </div>
+
+</section>
+
+
+@code {
+
+    [SupplyParameterFromQuery]
+    public string StatusMessage { get; set; } = "* Yes, I agree to the terms and privacy policy.";
+    [SupplyParameterFromForm]
+    public SubscribeFormModel SubscribeFrom { get; set; } = new SubscribeFormModel();
+
+    private async Task OnValidSubmit()
+    {
+        try
+        {
+            var result = await Http.PostAsJsonAsync("https://newsletterprovider-silicon-webapp.azurewebsites.net/api/Subscribe?code=sQxtnodl9f8u5tDhLrK5lTmvI2oLKJhov9gFqrfl6qhbAzFuofCxag%3D%3D", SubscribeFrom);
+            if (result.IsSuccessStatusCode)
+                StatusMessage = "Thanks for subscribing";
+        }
+        catch (Exception)
+        {
+            StatusMessage = "Unable to subscribe. Please try again later";
+        }
+
+        SubscribeFrom = new SubscribeFormModel();
+
+
+
+    }
+
+    public class SubscribeFormModel
+    {
+        public bool DailyNewsletter { get; set; }
+
+        public bool AdvertisingUpdate { get; set; }
+
+        public bool WeekInReview { get; set; }
+
+        public bool EventUpdates { get; set; }
+
+        public bool StartupsWeekly { get; set; }
+
+        public bool Podcasts { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "You must enter an email address")]
+        [Display(Name = "Email Address", Prompt = "Your Email")]
+        public string Email { get; set; } = null!;
+
+        public string Message { get; set; } = null!;
+    }
+}
