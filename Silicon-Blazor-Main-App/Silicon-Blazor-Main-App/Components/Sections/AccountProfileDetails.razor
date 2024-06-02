@@ -81,7 +81,7 @@ else
 
             try
             {
-                var response = await Http.PostAsync("https://fileprovider-win23jsbackend-hugos.azurewebsite.net/api/upload", content);
+                var response = await Http.PostAsync("https://fileprovider-silicon-blazor-app.azurewebsites.net", content);
                 if (response.IsSuccessStatusCode)
                 {
                     Logger.LogInformation("File uploaded successfully.");

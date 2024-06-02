@@ -307,6 +307,13 @@ form .alert {
   color: #ffffff;
   box-shadow: 0px 8px 18px -8px #EF4444;
 }
+form .alert-success {
+  margin-top: 0.5rem;
+  background-color: #22C55E;
+  align-items: center;
+  color: #ffffff;
+  box-shadow: 0px 8px 18px -8px #22C55E;
+}
 
 .btn-theme {
   border-radius: 6px;

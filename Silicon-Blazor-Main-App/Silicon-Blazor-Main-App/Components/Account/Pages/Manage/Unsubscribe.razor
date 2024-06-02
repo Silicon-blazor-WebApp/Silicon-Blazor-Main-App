@@ -1,0 +1,63 @@
+﻿@page "/Account/Manage/notifications/Unsubscribe"
+
+<section id="notifications">
+    <h1>Notifications</h1>
+    <EditForm FormName="subscribe" Model="SubscribeFrom" OnValidSubmit="OnValidSubmit" method="post" novalidate>
+        <div id="form-email" class="input-group">
+            <label>Preferred email for notifications</label>
+            <InputText @bind-Value="SubscribeFrom.Email" placeholder="Enter your e-email" />
+        </div>
+
+
+        @if (!string.IsNullOrEmpty(StatusMessage))
+        {
+            <div class="alert-success">
+                @StatusMessage
+            </div>
+        }
+
+        <div class="flex-buttons">
+            <button class="btn-gray" type="reset">Cancel</button>
+            <button class="btn-theme" type="submit">Save changes</button>
+        </div>
+    </EditForm>
+</section>
+
+
+@code {
+
+    [SupplyParameterFromQuery]
+    public string StatusMessage { get; set; } = null!;
+    [SupplyParameterFromForm]
+    public SubscribeFormModel SubscribeFrom { get; set; } = new SubscribeFormModel();
+
+    private async Task OnValidSubmit()
+    {
+        try
+        {
+            var result = await Http.PostAsJsonAsync("https://newslettersubscriberprovider-silicon-blazor.azurewebsites.net/api/Unsubscribe?code=FECKK26pecZ3Kvi-r91pZCQarTtT0qNXdYy0sPvAUQVHAzFuqPeBZQ%3D%3D", SubscribeFrom);
+            if (result.IsSuccessStatusCode)
+                StatusMessage = "You are unsubscribed and will no longer receive our newsletter.";
+        }
+        catch (Exception)
+        {
+            StatusMessage = "Unable to unsubscribe. Please try again later";
+        }
+
+        SubscribeFrom = new SubscribeFormModel();
+        StateHasChanged();
+
+
+    }
+
+    public class SubscribeFormModel
+    {
+
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "You must enter an email address")]
+        [Display(Name = "Email Address", Prompt = "Your Email")]
+        public string Email { get; set; } = null!;
+
+        public string Message { get; set; } = null!;
+    }
+}

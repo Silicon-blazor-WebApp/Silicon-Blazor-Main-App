@@ -2,47 +2,55 @@
 
 <section id="notifications">
     <h1>Notifications</h1>
-    <EditForm Model="SubscribeFrom">
+    <EditForm FormName="subscribe" Model="@SubscribeFrom" OnValidSubmit="@OnValidSubmit" method="post" novalidate>
+        <div class="status-message">
+            @if (!string.IsNullOrEmpty(StatusMessage))
+            {
+                <div class="alert-success">@StatusMessage</div>
+            }
+        </div>
         <div id="form-email" class="input-group">
             <label>Preferred email for notifications</label>
-            <InputText @bind-Value="SubscribeFrom.Email" placeholder="Enter your e-email"  />
+            <InputText @bind-Value="SubscribeFrom.Email" placeholder="Enter your e-mail" />
+            <ValidationMessage For="@(() => SubscribeFrom.Email)" class="alert" />
         </div>
+        <a href="/Account/Manage/notifications/Unsubscribe">Already subscribed? Unsubscribe here...</a>
+
+        <div class="flexer">
+            <div id="btn-switch-g">
+                <label class="switch">
+                    <input type="checkbox" id="switch-mode-notifications" />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="text">
+                <h6>Subscribe to Newsletter</h6>
+                <p>Nec, posuere non felis duis massa vitae aliquet interdum scelerisque. Neque ullamcorper.</p>
+            </div>
+        </div>
+        <div class="flexer">
+            <div id="btn-switch-g">
+                <label class="switch">
+                    <input type="checkbox" id="switch-mode-notifications" />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="text">
+                <h6>Use Dark Mode Theme in Application</h6>
+                <p>Tortor massa porttitor enim tristique neque fermentum sed.</p>
+            </div>
+        </div>
+        <div class="flex-buttons">
+            <button class="btn-gray" type="reset">Cancel</button>
+            <button class="btn-theme" type="submit">Save changes</button>
+        </div>
+
     </EditForm>
-    <div class="flexer">
-        <div id="btn-switch-g">
-            <label class="switch">
-                <input type="checkbox" id="switch-mode-notifications" />
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="text">
-            <h6>Subscribe to Newsletter</h6>
-            <p>Nec, posuere non felis duis massa vitae aliquet interdum scelerisque. Neque ullamcorper.</p>
-        </div>
-    </div>
-    <div class="flexer">
-        <div id="btn-switch-g">
-            <label class="switch">
-                <input type="checkbox" id="switch-mode-notifications" />
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="text">
-            <h6>Use Dark Mode Theme in Application</h6>
-            <p>Tortor massa porttitor enim tristique neque fermentum sed.</p>
-        </div>
-    </div>
-    <div class="flex-buttons">
-        <button class="btn-gray" type="reset">Cancel</button>
-        <button class="btn-theme" type="submit">Save changes</button>
-    </div>
 </section>
 
-
 @code {
-
     [SupplyParameterFromQuery]
-    public string StatusMessage { get; set; } = "* Yes, I agree to the terms and privacy policy.";
+    public string StatusMessage { get; set; } = null!;
     [SupplyParameterFromForm]
     public SubscribeFormModel SubscribeFrom { get; set; } = new SubscribeFormModel();
 
@@ -50,9 +58,11 @@
     {
         try
         {
-            var result = await Http.PostAsJsonAsync("https://newsletterprovider-silicon-webapp.azurewebsites.net/api/Subscribe?code=sQxtnodl9f8u5tDhLrK5lTmvI2oLKJhov9gFqrfl6qhbAzFuofCxag%3D%3D", SubscribeFrom);
+            var result = await Http.PostAsJsonAsync("https://newslettersubscriberprovider-silicon-blazor.azurewebsites.net/api/Subscribe?code=G8mJB80BzS53s8vaBRAo1x9yavq4XFN7FTo71Xg01jdYAzFuyZIqug%3D%3D", SubscribeFrom);
             if (result.IsSuccessStatusCode)
                 StatusMessage = "Thanks for subscribing";
+            else
+               StatusMessage = "Unable to subscribe. Please try again later";
         }
         catch (Exception)
         {
@@ -60,25 +70,11 @@
         }
 
         SubscribeFrom = new SubscribeFormModel();
-
-
-
+        StateHasChanged();
     }
 
     public class SubscribeFormModel
     {
-        public bool DailyNewsletter { get; set; }
-
-        public bool AdvertisingUpdate { get; set; }
-
-        public bool WeekInReview { get; set; }
-
-        public bool EventUpdates { get; set; }
-
-        public bool StartupsWeekly { get; set; }
-
-        public bool Podcasts { get; set; }
-
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "You must enter an email address")]
         [Display(Name = "Email Address", Prompt = "Your Email")]

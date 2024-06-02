@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @rendermode InteractiveServer
 
+
 <PageTitle>Sign up</PageTitle>
 
 <section id="signup">
@@ -76,7 +77,8 @@
                 LastName = signUpForm.LastName,
 
                 UserName = signUpForm.Email,
-                Email = signUpForm.Email
+                Email = signUpForm.Email,
+                RoleName = "User" 
             };
 
         try
@@ -106,7 +108,7 @@
         {
             RedirectManager.RedirectTo("/account/RegisterConfirmation", new() { ["email"] = signUpForm.Email, ["returnUrl"] = ReturnUrl });
         }
-
+        
         await SignInManager.SignInAsync(user, isPersistent: false);
         RedirectManager.RedirectTo(ReturnUrl);
     }

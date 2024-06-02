@@ -1,18 +1,28 @@
-﻿        <footer>
-            <div class="container">
-                
-                <div class="social-media">
-                    <a class="btn-social" href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                    <a class="btn-social" href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                    <a class="btn-social" href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a class="btn-social" href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-                <div class="container-child">
-                    <p>© @DateTime.Now.Year Silicon. All rights reserved. Pulvinar urna condimentum amet tempor, ornare integer. Lorem odio justo malesuada suspendisse viverra aliquet quisque turpis non. Feugiat in odio non nunc ornare consectetur.</p>
-                </div>
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<footer>
+    <div class="container">
+        @if (!isUserLoggedIn)
+        {
+            <div class="social-media">
+                <a class="btn-social" href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                <a class="btn-social" href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
+                <a class="btn-social" href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a class="btn-social" href="#"><i class="fa-brands fa-youtube"></i></a>
             </div>
-        </footer>
+        }
+        <div class="container-child">
+            <p>© @DateTime.Now.Year Silicon. All rights reserved. Pulvinar urna condimentum amet tempor, ornare integer. Lorem odio justo malesuada suspendisse viverra aliquet quisque turpis non. Feugiat in odio non nunc ornare consectetur.</p>
+        </div>
+    </div>
+</footer>
 
 @code {
+    private bool isUserLoggedIn;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        isUserLoggedIn = user.User.Identity!.IsAuthenticated;
+    }
 }

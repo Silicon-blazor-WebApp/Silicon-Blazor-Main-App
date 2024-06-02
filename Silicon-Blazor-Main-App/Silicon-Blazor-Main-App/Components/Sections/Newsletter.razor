@@ -70,7 +70,7 @@
     {
         try
         {
-            var result = await Http.PostAsJsonAsync("https://newsletterprovider-silicon-webapp.azurewebsites.net/api/Subscribe?code=sQxtnodl9f8u5tDhLrK5lTmvI2oLKJhov9gFqrfl6qhbAzFuofCxag%3D%3D", SubscribeFrom);
+            var result = await Http.PostAsJsonAsync("https://newslettersubscriberprovider-silicon-blazor.azurewebsites.net/api/Subscribe?code=G8mJB80BzS53s8vaBRAo1x9yavq4XFN7FTo71Xg01jdYAzFuyZIqug%3D%3D", SubscribeFrom);
             if (result.IsSuccessStatusCode)
                 StatusMessage = "Thanks for subscribing";
         }
